@@ -1,14 +1,5 @@
 <template>
   <div class="container" >
-    <div class="header"></div>
-    <swiper class="swiper" :indicator-dots="true" :circular="true" indicator-color="rgba(0,0,0,0.5)" indicator-active-color="#b6e429">
-      <block v-for="item in images" v-bind:key="item.id" @click="itemClick(item.id)">
-        <swiper-item>
-          <img mode="aspectFill" class="swiper-img" :src="item.image" />
-        </swiper-item>
-      </block>
-    </swiper>
-    <div class="title">精选推荐</div>
     <div class="listCon">
       <item v-for="item in list" v-bind:key="item.id" :item='item'></item>
     </div>
@@ -22,8 +13,7 @@ import item from 'src/components/item.vue'
 export default {
   data () {
     return {
-      list: [],
-      images: []
+      list: []
     }
   },
   components: {
@@ -32,20 +22,14 @@ export default {
   computed: {
   },
   onLoad (options) {
-    this.mid = options.mid
   },
   created () {
     getIndexList().then(res => {
-      this.list = res.recommend
-      this.images = res.image
+      this.list = res.list
     })
   },
   methods: {
-    clickHandle (id) {
-      wx.navigateTo({
-        url: `/pages/detail/main?id=${id}`
-      })
-    },
+
     orderList () {
       wx.navigateTo({
         url: '/pages/order_list/main'
@@ -58,16 +42,6 @@ export default {
 
 <style lang="less" scoped>
 @import '~src/utils/less/var.less';
-.header{
-  position: fixed;
-  top: 0;
-  right: 0;
-  left: 0;
-  z-index: 100;
-  width: 640/@bs;
-  height: 100/@bs;
-  background-color: yellowgreen;
-}
 .swiper{
   width: 640/@bs;
   height: 330/@bs;

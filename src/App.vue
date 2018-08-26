@@ -6,13 +6,16 @@ export default {
 }
 </script>
 
-<style>
+<style lang="less">
+@import '~src/utils/less/var.less';
 .container {
-  height: 100%;
   display: flex;
-  flex-direction: column;
   align-items: center;
+  flex-direction: column;
   justify-content: space-between;
   box-sizing: border-box;
+  padding-top: 100/@bs;
+  height: 100%;
 }
+
 </style>

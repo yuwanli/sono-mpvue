@@ -1,6 +1,7 @@
 {
   "pages": [
     "pages/index/main",
+    "pages/all/main",
     "pages/order_detail/main",
     "pages/order_list/main",
     "pages/cart/main",
@@ -11,8 +12,26 @@
   ],
   "window": {
     "backgroundTextStyle": "light",
-    "navigationBarBackgroundColor": "#fff",
+    "navigationBarBackgroundColor": "#1c1b20",
     "navigationBarTitleText": "sono",
-    "navigationBarTextStyle": "black"
+    "navigationBarTextStyle": "white"
+  },
+  "tabBar": {
+    "backgroundColor": "#2a2323",
+    "color": "#fff",
+    "selectedColor": "#90bb34",
+    "list": [{
+      "pagePath": "pages/index/main",
+      "text": "首页"
+    }, {
+      "pagePath": "pages/all/main",
+      "text": "全部精选"
+    },{
+      "pagePath": "pages/cart/main",
+      "text": "购物车"
+    },{
+      "pagePath": "pages/login/main",
+      "text": "个人中心"
+    }]
   }
 }

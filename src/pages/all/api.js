@@ -3,7 +3,7 @@ import {ajax} from 'src/utils/ajax'
 export const getIndexList = () => {
   return new Promise((resolve, reject) => {
     ajax({
-      sono: 'good/recommend',
+      sono: 'good/list',
       method: 'POST',
       data: {
         page: 1,
