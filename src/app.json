@@ -1,0 +1,18 @@
+{
+  "pages": [
+    "pages/index/main",
+    "pages/order_detail/main",
+    "pages/order_list/main",
+    "pages/cart/main",
+    "pages/demo/index/main",
+    "pages/demo/counter/main",
+    "pages/login/main",
+    "pages/detail/main"
+  ],
+  "window": {
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#fff",
+    "navigationBarTitleText": "sono",
+    "navigationBarTextStyle": "black"
+  }
+}
