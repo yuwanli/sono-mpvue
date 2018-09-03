@@ -5,7 +5,7 @@ export const getIndexList = () => {
     ajax({
       sono: 'good/recommend',
       method: 'POST',
-      data: {
+      query: {
         page: 1,
         num: 10
       }

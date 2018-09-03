@@ -1,8 +1,8 @@
 <template>
   <div class="item" @click="itemClick(item.id)">
     <img mode="aspectFill" class="item-img" :src="item.image" alt="">
-    <p class="item-name">{{item.title}}{{item.title}}</p>
-    <p class="item-price">¥ {{item.price}}</p>
+    <p class="item-name">{{item.title || 'sono'}}</p>
+    <p class="item-price">¥ {{item.price || '0.00'}}</p>
   </div>
 </template>
 
@@ -16,6 +16,7 @@ export default {
       })
     }
   }
+
 }
 </script>
 

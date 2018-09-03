@@ -1,14 +1,14 @@
 import {ajax} from 'src/utils/ajax'
 
-export const getIndexList = () => {
+export const getIndexList = (obj, hideLoading) => {
   return new Promise((resolve, reject) => {
     ajax({
       sono: 'good/list',
-      method: 'POST',
-      data: {
-        page: 1,
-        num: 10
-      }
+      method: 'GET',
+      query: {
+        ...obj
+      },
+      hideLoading
     }).then(res => {
       resolve(res)
     })

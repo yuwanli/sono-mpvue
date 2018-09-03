@@ -55,6 +55,11 @@ function param (obj, traditional) {
 
 export const ajax = (options) => {
   serializeData(options)
+  if (!options.hideLoading) {
+    wx.showLoading({
+      title: '加载中'
+    })
+  }
   return new Promise((resolve, reject) => {
     wx.request({
       url: options.url,
@@ -64,6 +69,7 @@ export const ajax = (options) => {
       method: options.method,
       data: options.data,
       success: function (resp) {
+        wx.hideLoading()
         resp = resp.data
         let errcode = parseInt(resp.errcode)
         if (errcode === 0) {

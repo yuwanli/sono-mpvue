@@ -11,6 +11,20 @@ export const getWxData = (mid) => {
           })
         }
       }
+    },
+    fail () {
+      wx.showToast({
+        title: '1111',
+        icon: 'success',
+        duration: 2000
+      })
+    },
+    complete () {
+      wx.showToast({
+        title: '2222',
+        icon: 'success',
+        duration: 2000
+      })
     }
   })
 }

@@ -1,6 +1,13 @@
 <template>
   <div class="container">
-    <wxParse :content="content" />
+    <sono-header></sono-header>
+    <div class="baseInfo">
+      <h1>{{data.title}}</h1>
+      <p>{{data.price}}</p>
+    </div>
+    <div class="content">
+      <wxParse :content="data.content" />
+    </div>
     <div class="add-cart" @click="addCart">加购物车</div>
     <div class="to-cart" @click="toCart">去购物车</div>
   </div>
@@ -8,22 +15,27 @@
 
 <script>
 import {getDetail, cartAdd} from './api'
+import header from 'src/components/header.vue'
 import wxParse from 'mpvue-wxparse'
-
+import {base} from 'src/mixins/base.js'
 export default {
   data () {
     return {
-      content: ''
+      data: {
+        content: '<p style="text-align:center">sono</p>'
+      }
     }
   },
   computed: {
   },
   components: {
-    wxParse
+    wxParse,
+    'sono-header': header
   },
+  mixins: [base],
   onLoad () {
     getDetail(this.$root.$mp.query.id).then(res => {
-      this.content = res.content
+      this.data = res
       this.good_id = res.good_id
       this.product_id = res.product_id
     })
@@ -43,7 +55,7 @@ export default {
       })
     },
     toCart () {
-      wx.navigateTo({
+      wx.switchTab({
         url: '/pages/cart/main'
       })
     }
@@ -51,44 +63,61 @@ export default {
 }
 </script>
 
-<style scoped>
+<style lang="less" scoped>
+@import '~src/utils/less/var.less';
 @import url("~mpvue-wxparse/src/wxParse.css");
-.item{
-  margin-bottom: 20px;
+.container{
+  background-color: @grayBg;
 }
-.test{
-  width: 750px;
-  background-color: red;
+.content{
+  background-color: #fff;
 }
-img{
-  width: 750px;
+
+.baseInfo{
+  display:flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+  margin-bottom: 15/@bs;
+  height: 140/@bs;
+  background-color: #fff;
+  h1{
+    color: @blackColor;
+    font-size: 30/@bs;
+    line-height: 42/@bs;
+  }
+  p{
+    color: @darkRed;
+    font-size: 30/@bs;
+    line-height: 42/@bs;
+  }
 }
 .add-cart{
   position: fixed;
+  bottom: 20px;
+  left: 20px;
+  z-index: 100;
   width: 100px;
   height: 50px;
-  background-color: yellowgreen;
   border-radius: 5px;
-  left: 20px;
-  bottom: 20px;
-  z-index: 100;
+  background-color: yellowgreen;
   color: #fff;
-  font-size: 20px;
   text-align: center;
+  font-size: 20px;
   line-height: 50px;
 }
 .to-cart{
   position: fixed;
-  width: 100px;
-  height: 50px;
-  background-color: rebeccapurple;
-  border-radius: 5px;
   right: 20px;
   bottom: 20px;
   z-index: 100;
+  width: 100px;
+  height: 50px;
+  border-radius: 5px;
+  background-color: rebeccapurple;
   color: #fff;
-  font-size: 20px;
   text-align: center;
+  font-size: 20px;
   line-height: 50px;
 }
 </style>

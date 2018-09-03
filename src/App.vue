@@ -8,14 +8,11 @@ export default {
 
 <style lang="less">
 @import '~src/utils/less/var.less';
-.container {
-  display: flex;
-  align-items: center;
-  flex-direction: column;
-  justify-content: space-between;
-  box-sizing: border-box;
+.container{
+  position: relative;
   padding-top: 100/@bs;
-  height: 100%;
 }
-
+.wxParse .p{
+  margin: 0!important;
+}
 </style>

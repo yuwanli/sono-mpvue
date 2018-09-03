@@ -25,7 +25,7 @@ export default {
   components: {
     wxParse
   },
-  onLoad () {
+  onShow () {
     getCartList().then(res => {
       this.cart = res.cart
       this.addressId = res.address.id
