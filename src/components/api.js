@@ -1,20 +1,8 @@
 import {ajax} from 'src/utils/ajax'
-
-export const getCartList = (id) => {
+export const cartAdd = (data) => {
   return new Promise((resolve, reject) => {
     ajax({
-      sono: 'cart/list',
-      method: 'POST'
-    }).then(res => {
-      resolve(res)
-    })
-  })
-}
-
-export const addOrder = (data) => {
-  return new Promise((resolve, reject) => {
-    ajax({
-      sono: 'order/add',
+      sono: 'cart/add',
       method: 'POST',
       data: {
         ...data
@@ -24,14 +12,13 @@ export const addOrder = (data) => {
     })
   })
 }
-
-export const deleteCart = (id) => {
+export const cartEdit = (data) => {
   return new Promise((resolve, reject) => {
     ajax({
-      sono: 'cart/del',
+      sono: 'cart/edit',
       method: 'POST',
       data: {
-        id
+        ...data
       }
     }).then(res => {
       resolve(res)

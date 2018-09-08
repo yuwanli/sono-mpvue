@@ -20,7 +20,7 @@ export default {
 }
 </script>
 
-<style lang="less">
+<style lang="less" scoped>
 @import '~src/utils/less/var.less';
 .item{
   display: flex;

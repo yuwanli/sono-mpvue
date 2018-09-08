@@ -12,6 +12,9 @@ export default {
   position: relative;
   padding-top: 100/@bs;
 }
+.no-header{
+  padding-top: 0;
+}
 .wxParse .p{
   margin: 0!important;
 }

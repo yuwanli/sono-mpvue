@@ -13,17 +13,3 @@ export const getDetail = (id) => {
     })
   })
 }
-
-export const cartAdd = (data) => {
-  return new Promise((resolve, reject) => {
-    ajax({
-      sono: 'cart/add',
-      method: 'POST',
-      data: {
-        ...data
-      }
-    }).then(res => {
-      resolve(res)
-    })
-  })
-}

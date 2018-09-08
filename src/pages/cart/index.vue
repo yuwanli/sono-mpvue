@@ -1,29 +1,72 @@
 <template>
-  <div class="container">
-    <div class="item" v-for="item in cart" v-bind:key="item.id">
-      <div>
-        {{item.goods_name}} 数量：{{item.goods_number}}
+  <div class="container no-header">
+    <title title="购物车"></title>
+    <template v-if="cart.length>0">
+      <div class="address">
+        <template v-if="address.detailInfo">
+          <div class="address_base">
+            {{address.userName}}<span>{{address.telNumber}}</span>
+          </div>
+          <div class="address_info">{{address.provinceName}}{{address.cityName}}{{address.countyName}}{{address.detailInfo}}</div>
+          <div class="address_btn" @click="openAddress">其他地址<image src="/assets/images/icon_down.png"></image></div>
+        </template>
+        <div v-else class="address_new"  @click="openAddress">新增地址</div>
       </div>
+      <div class="title">南屋北舍</div>
+      <div class="item" v-for="(item,index) in cart" :key="item.id">
+        <div class="item_base">
+          <div class="item_base-name">商品：{{item.goods_name}}</div>
+          <div class="item_base-price">￥{{item.goods_price}}</div>
+        </div>
+        <div class="item_info">
+          <div class="item_info-img" :style="'background-image:url('+item.product_img+')'"></div>
+          <div class="item_info-detail">
+            <div class="con name">
+              <p>{{item.product_name}}</p>
+              <span class="delete" @click="delCart(item.id,index)">删除</span>
+            </div>
+            <div class="con control">
+              <control :id="item.id" :goods_number="item.goods_number" :remained_number="item.remained_number"></control>
+              <span class="num">&times;{{item.goods_number}}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <p class="tips">开具发票：购买后，在“我的订单”申请</p>
+      <p class="total">合计：￥{{total}}</p>
+      <div class="submit" @click="toOrder">去结算</div>
+    </template>
+    <div class="no-data" v-else>
+      <p>购物车为空</p>
+      <div class="btn" @click="goIndexPage">去首页看看</div>
     </div>
-     <div v-if="cart && cart.length === 0">购物车数据为空</div>
-    <div class="to-order" @click="toOrder">去下单</div>
   </div>
 </template>
 
 <script>
-import {getCartList, addOrder} from './api'
-import wxParse from 'mpvue-wxparse'
+import {getCartList, addOrder, deleteCart} from './api'
+import control from 'src/components/control.vue'
+import title from 'src/components/title.vue'
 
 export default {
   data () {
     return {
-      cart: ''
+      cart: [{}],
+      address: {}
     }
   },
   computed: {
+    total () {
+      let res = 0
+      this.cart.length > 0 && this.cart.forEach(val => {
+        res += val.goods_number * val.goods_price
+      })
+      return res
+    }
   },
   components: {
-    wxParse
+    control,
+    title
   },
   onShow () {
     getCartList().then(res => {
@@ -32,8 +75,88 @@ export default {
     })
   },
   methods: {
+    goIndexPage () {
+      wx.switchTab({
+        url: `/pages/index/main`
+      })
+    },
+    delCart (id, index) {
+      let _this = this
+      wx.showModal({
+        title: '提示',
+        content: '确定删除该商品？',
+        cancelText: '取消',
+        confirmText: '确定',
+        confirmColor: '#FF434C',
+        success: function (res) {
+          if (res.confirm) {
+            deleteCart(id).then(res => {
+              _this.cart.splice(index, 1)
+            })
+          }
+        }
+      })
+    },
+    openAddress () {
+      let _this = this
+      if (wx.chooseAddress) {
+        wx.getSetting({
+          success: (res) => {
+            if (!res.authSetting['scope.address']) {
+              wx.showModal({
+                title: '提示',
+                content: '请允许并勾选地址信息的获取，以确保正常使用',
+                success (res2) {
+                  if (res2.confirm) {
+                    wx.openSetting({
+                      success (res3) {
+                        if (res3.authSetting['scope.address']) {
+                          wx.chooseAddress({
+                            success: function (resp) {
+                              _this.address = resp
+                            }
+                          })
+                        } else {
+                          this.openAddress()
+                        }
+                      },
+                      fail: function (err) {
+                        console.log(err)
+                      }
+                    })
+                  } else {
+                    wx.showToast({
+                      title: '地址信息获取失败',
+                      icon: 'none'
+                    })
+                  }
+                }
+              })
+            } else {
+              wx.chooseAddress({
+                success: function (resp) {
+                  _this.address = resp
+                }
+              })
+            }
+          }
+        })
+      } else {
+        wx.showModal({
+          title: '提示',
+          content: '当前微信版本过低，无法使用该功能，请升级到最新微信版本后重试。'
+        })
+      }
+    },
     toOrder () {
-      addOrder(this.addressId).then(res => {
+      if (!this.address.detailInfo) {
+        wx.showToast({
+          title: '请选择你的收获地址',
+          icon: 'none'
+        })
+        return
+      }
+      addOrder({...this.address}).then(res => {
         wx.navigateTo({
           url: `/pages/order_detail/main?id=${res.order_id}`
         })
@@ -43,19 +166,168 @@ export default {
 }
 </script>
 
-<style scoped>
-.to-order{
-  position: fixed;
-  width: 100px;
-  height: 50px;
-  background-color: yellowgreen;
-  border-radius: 5px;
-  right: 20px;
-  bottom: 20px;
-  z-index: 100;
+<style lang="less" scoped>
+@import '~src/utils/less/var.less';
+.no-data{
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+  height: 640/@bs;
+  p{
+    color: rgba(0,0,0,0.6);
+    font-size: 30/@bs;
+    line-height: 60/@bs;
+  }
+  .btn{
+    margin-top: 20/@bs;
+    width: 200/@bs;
+    height: 50/@bs;
+    border-radius: 25/@bs;
+    background-color: #FF434C;
+    color: #fff;
+    color: #fff;
+    text-align: center;
+    font-size: 24/@bs;
+    line-height: 50/@bs;
+  }
+}
+.tips{
+  margin-top: 10/@bs;
+  padding: 0 30/@bs;
+  color: #666;
+  font-size: 20/@bs;
+}
+.title{
+  margin: 0 30/@bs;
+  margin-top: 20/@bs;
+  border-bottom: 1px solid #aaa;
+  color: #333;
+  font-size: 24/@bs;
+  line-height: 60/@bs;
+}
+.address{
+  overflow: hidden;
+  padding: 20/@bs 30/@bs;
+  border-bottom: 8/@bs solid #FF434C;
+  background-color: #ebebeb;
+  color: #333;
+  font-size: 24/@bs;
+  &_base{
+    margin-bottom: 10/@bs;
+    line-height: 30/@bs;
+    span{
+      margin-left: 30/@bs;
+    }
+  }
+  &_info{
+
+  }
+  &_btn{
+    display: flex;
+    float: right;
+    align-items: center;
+    justify-content: center;
+    height: 30/@bs;
+    color: rgba(0,0,0,0.6);
+    image{
+      margin-left: 5/@bs;
+      width: 30/@bs;
+      height: 16/@bs;
+    }
+  }
+  &_new{
+    margin: 0 auto;
+    width: 200/@bs;
+    height: 50/@bs;
+    border-radius: 25/@bs;
+    background-color: #FF434C;
+    color: #fff;
+    color: #fff;
+    text-align: center;
+    font-size: 24/@bs;
+    line-height: 50/@bs;
+  }
+}
+.total{
+  margin-top: 20/@bs;
+  padding: 0 30/@bs;
+  color: #FF434C;
+  text-align: right;
+  font-weight: bold;
+  font-size: 30/@bs;
+}
+.submit{
+  margin: 40/@bs auto;
+  width: 380/@bs;
+  height: 50/@bs;
+  border-radius: 25/@bs;
+  background-color: #FF434C;
   color: #fff;
-  font-size: 20px;
   text-align: center;
-  line-height: 50px;
+  font-size: 30/@bs;
+  line-height: 50/@bs;
+}
+.item{
+  margin: 0 30/@bs;
+  padding: 15/@bs 0;
+  border-bottom: 2/@bs solid #bbbbbb;
+  &_base{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-bottom: 20/@bs;
+    color: #000;
+    font-size: 24/@bs;
+    &-price{
+      font-weight: bold;
+    }
+  }
+  &_info{
+    display: flex;
+    justify-content: space-between;
+    font-size: 20/@bs;
+    &-img{
+      flex: 0 0 120/@bs;
+      margin-right: 20/@bs;
+      width: 120/@bs;
+      height: 120/@bs;
+      background-color: #ebebeb;
+      background-position: center;
+      background-size: 100% auto;
+      background-repeat: no-repeat;
+    }
+    &-detail{
+      display: flex;
+      flex: 1;
+      flex-direction: column;
+      justify-content: space-between;
+      .con{
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+      }
+      .control{
+        .num{
+          color: rgba(0,0,0,0.6);
+          font-size: 24/@bs;
+        }
+      }
+      .name {
+        line-height: 30/@bs;
+        p{
+          color: rgba(0,0,0,0.6);
+        }
+        .delete{
+          box-sizing: border-box;
+          padding: 0 10/@bs;
+          border: 1px solid #aaa;
+          color: #FF434C;
+          font-size: 20/@bs;
+          line-height: 28/@bs;
+        }
+      }
+    }
+  }
 }
 </style>

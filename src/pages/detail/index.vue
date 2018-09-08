@@ -8,14 +8,17 @@
     <div class="content">
       <wxParse :content="data.content" />
     </div>
-    <div class="add-cart" @click="addCart">加购物车</div>
-    <div class="to-cart" @click="toCart">去购物车</div>
+
+    <sku-menu :data="data"></sku-menu>
+    <!-- <div class="add-cart" @click="addCart">加购物车</div>
+    <div class="to-cart" @click="toCart">去购物车</div> -->
   </div>
 </template>
 
 <script>
-import {getDetail, cartAdd} from './api'
+import {getDetail} from './api'
 import header from 'src/components/header.vue'
+import skuMenu from 'src/components/sku-menu.vue'
 import wxParse from 'mpvue-wxparse'
 import {base} from 'src/mixins/base.js'
 export default {
@@ -30,7 +33,8 @@ export default {
   },
   components: {
     wxParse,
-    'sono-header': header
+    'sono-header': header,
+    'sku-menu': skuMenu
   },
   mixins: [base],
   onLoad () {
@@ -41,19 +45,19 @@ export default {
     })
   },
   methods: {
-    addCart () {
-      cartAdd({
-        goods_id: this.good_id,
-        product_id: this.product_id,
-        goods_number: 1
-      }).then(res => {
-        wx.showToast({
-          title: '加购成功',
-          icon: 'success',
-          duration: 2000
-        })
-      })
-    },
+    // addCart () {
+    //   cartAdd({
+    //     goods_id: this.good_id,
+    //     product_id: this.product_id,
+    //     goods_number: 1
+    //   }).then(res => {
+    //     wx.showToast({
+    //       title: '加购成功',
+    //       icon: 'success',
+    //       duration: 2000
+    //     })
+    //   })
+    // },
     toCart () {
       wx.switchTab({
         url: '/pages/cart/main'
@@ -68,6 +72,7 @@ export default {
 @import url("~mpvue-wxparse/src/wxParse.css");
 .container{
   background-color: @grayBg;
+  padding-bottom: 80/@bs;
 }
 .content{
   background-color: #fff;

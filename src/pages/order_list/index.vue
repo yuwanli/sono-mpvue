@@ -37,22 +37,22 @@ export default {
 }
 </script>
 
-<style scoped>
+<style lang="less" scoped>
 .item{
   margin-bottom: 20px;
 }
 .to-buy{
   position: fixed;
-  width: 100px;
-  height: 50px;
-  background-color: yellowgreen;
-  border-radius: 5px;
   right: 20px;
   bottom: 20px;
   z-index: 100;
+  width: 100px;
+  height: 50px;
+  border-radius: 5px;
+  background-color: yellowgreen;
   color: #fff;
-  font-size: 20px;
   text-align: center;
+  font-size: 20px;
   line-height: 50px;
 }
 </style>
