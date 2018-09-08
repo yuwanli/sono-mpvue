@@ -8,6 +8,7 @@
     "pages/demo/index/main",
     "pages/demo/counter/main",
     "pages/login/main",
+    "pages/order_detail/success/main",
     "pages/detail/main"
   ],
   "window": {

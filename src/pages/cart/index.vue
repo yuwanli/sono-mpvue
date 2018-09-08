@@ -201,7 +201,7 @@ export default {
 .title{
   margin: 0 30/@bs;
   margin-top: 20/@bs;
-  border-bottom: 1px solid #aaa;
+  border-bottom: 1/@bs solid #aaa;
   color: #333;
   font-size: 24/@bs;
   line-height: 60/@bs;
@@ -271,7 +271,7 @@ export default {
 .item{
   margin: 0 30/@bs;
   padding: 15/@bs 0;
-  border-bottom: 2/@bs solid #bbbbbb;
+  border-bottom: 1/@bs solid #bbbbbb;
   &_base{
     display: flex;
     flex-direction: row;
