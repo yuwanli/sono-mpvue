@@ -1,6 +1,7 @@
 {
   "pages": [
     "pages/index/main",
+    "pages/user/main",
     "pages/all/main",
     "pages/order_detail/main",
     "pages/order_list/main",
@@ -39,7 +40,7 @@
     },{
       "iconPath":"assets/images/user.png",
       "selectedIconPath": "assets/images/user_active.png",
-      "pagePath": "pages/order_list/main",
+      "pagePath": "pages/user/main",
       "text": "个人中心"
     }]
   }

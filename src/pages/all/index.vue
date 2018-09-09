@@ -5,7 +5,6 @@
         <item v-for="item in list" v-bind:key="item.id" :item='item'></item>
         <sono-loading v-show="initFlag" :hasMore="hasMore"></sono-loading>
     </scroll-view>
-    <div class="order_list" @click="orderList">订单列表</div>
   </div>
 </template>
 
@@ -47,7 +46,6 @@ export default {
       })
     },
     loadData (hideLoading) {
-      console.log('page:' + this.page)
       if (!this.hasMore || this.loading) {
         return
       }
@@ -76,24 +74,10 @@ export default {
 @import '~src/utils/less/var.less';
 .listCon{
   position: fixed;
-  left: 0;
+  top: 100/@bs;
   right: 0;
   bottom: 0;
-  top: 100/@bs;
+  left: 0;
   border-top: 1/@bs solid #d9d9d9;
-}
-.order_list{
-  position: fixed;
-  right: 20px;
-  bottom: 20px;
-  z-index: 100;
-  width: 100px;
-  height: 50px;
-  border-radius: 5px;
-  background-color: @baseColor;
-  color: #fff;
-  text-align: center;
-  font-size: 20px;
-  line-height: 50px;
 }
 </style>

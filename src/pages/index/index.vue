@@ -12,7 +12,6 @@
       <div class="listCon">
         <item v-for="item in list" v-bind:key="item.id" :item='item'></item>
       </div>
-      <div class="order_list" @click="orderList">订单列表</div>
     </div>
 </template>
 
@@ -76,19 +75,5 @@ export default {
 }
 .listCon{
   border-top: 1/@bs solid #d9d9d9;
-}
-.order_list{
-  position: fixed;
-  right: 20px;
-  bottom: 20px;
-  z-index: 100;
-  width: 100px;
-  height: 50px;
-  border-radius: 5px;
-  background-color: @baseColor;
-  color: #fff;
-  text-align: center;
-  font-size: 20px;
-  line-height: 50px;
 }
 </style>
