@@ -20,12 +20,6 @@ export default {
       type: Boolean,
       default: true
     }
-  },
-  created () {
-    console.log('111')
-  },
-  mounted () {
-    console.log('111222')
   }
 }
 </script>
@@ -35,27 +29,27 @@ export default {
 <style lang="less" scoped>
 @import '~src/utils/less/var.less';
 .loading{
-  height: 80/@bs;
   display: flex;
-  justify-content: center;
   align-items: center;
   flex-direction: row;
+  justify-content: center;
   width: 640/@bs;
+  height: 80/@bs;
   p{
-    font-size: 24/@bs;
     color: #c5c5c5;
+    font-size: 24/@bs;
   }
 }
 .load-spinner{
+    margin-right: 15/@bs;
+    width: 30/@bs;
+    height: 30/@bs;
     border: 5/@bs solid transparent;
     border-top-color: rgb(204, 204, 204);
-    border-left-color: rgb(204, 204, 204);
     border-bottom-color: rgb(204, 204, 204);
-    height: 30/@bs;
-    width: 30/@bs;
-    animation: loading .8s infinite linear;
+    border-left-color: rgb(204, 204, 204);
     border-radius: 50%;
-    margin-right: 15/@bs;
+    animation: loading .8s infinite linear;
 }
 @keyframes loading {
     0% {

@@ -4,7 +4,6 @@ export const getWxData = (mid) => {
   wx.login({
     success (res) {
       if (res.code) {
-        console.log('11222')
         wx.setStorageSync('sono_code', res.code)
         // if (!wx.getStorageSync('sono_token')) {
 

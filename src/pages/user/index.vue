@@ -17,7 +17,7 @@
         <div class="item_detail">
           <div class="item_detail-name">
               <span class="goods">商品：{{item.good_name}}</span>
-              <span @click.stop="toOrder(item.id)" class="btn" v-if="item.order_status==='4'">去支付</span>
+              <span @click.stop="toOrder(item.id)" class="btn" v-if="item.order_status==='1'">去支付</span>
           </div>
           <div class="item_detail-box">
             <div class="picBox" :style="'background-image:url('+item.good_img+')'"></div>
@@ -252,12 +252,13 @@ export default {
         flex: 0 0 116/@bs;
         box-sizing: border-box;
         width: 116/@bs;
-        height: 30/@bs;
+        height: 36/@bs;
         border-radius: 5/@bs;
         background-color: #ff434c;
         color: #fff;
         text-align: center;
         font-size: 20/@bs;
+        line-height: 36/@bs;
       }
     }
 

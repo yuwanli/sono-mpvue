@@ -119,7 +119,6 @@ export default {
           }
         })
       })
-      console.log('111')
     }
   }
 }
@@ -129,35 +128,35 @@ export default {
 @import '~src/utils/less/var.less';
 @import url("~mpvue-wxparse/src/wxParse.css");
 .container{
-  background-color: @grayBg;
   padding-bottom: 80/@bs;
+  background-color: @grayBg;
 }
 .content{
   background-color: #fff;
 }
 .form{
-  background-color: #fff;
-  padding: 30/@bs;
   margin: 10/@bs 0;
+  padding: 30/@bs;
+  background-color: #fff;
   text-align: center;
   h1{
-    font-size: 30/@bs;
-    font-weight: bold;
     margin-bottom: 30/@bs;
+    font-weight: bold;
+    font-size: 30/@bs;
   }
   &_item{
-    height: 60/@bs;
-    align-items: center;
     display: flex;
-    font-size: 24/@bs;
-    color: #1c1c1c;
-    border-bottom: 1/@bs solid #aaaaaa;
+    align-items: center;
     margin: 0 30/@bs 15/@bs;
     padding: 0 10/@bs;
+    height: 60/@bs;
+    border-bottom: 1/@bs solid #aaaaaa;
+    color: #1c1c1c;
+    font-size: 24/@bs;
     &-name{
+      flex:  0 0 110/@bs;
       width: 110/@bs;
       text-align: left;
-      flex:  0 0 110/@bs;
     }
     &-input{
       flex: 1;
@@ -166,15 +165,15 @@ export default {
   }
   &_submit{
     display: block;
+    margin: 30/@bs auto 0;
     width: 380/@bs;
-    border-radius: 20/@bs;
     height: 50/@bs;
+    border-radius: 20/@bs;
     background-color: #f09da1;
     color: #fff;
+    text-align: center;
     font-size: 24/@bs;
     line-height: 50/@bs;
-    text-align: center;
-    margin: 30/@bs auto 0;
     transition: all 0.3s ease;
     &.active{
       background-color: #ff434c;
@@ -186,18 +185,18 @@ export default {
   text-align: left;
 
   &-name{
-    font-size: 24/@bs;
     color: #1c1c1c;
+    font-size: 24/@bs;
     line-height: 60/@bs;
   }
   &-input{
-    font-size: 24/@bs;
+    box-sizing: border-box;
     padding: 10/@bs;
     width: 100%;
-    color: #1c1c1c;
-    box-sizing: border-box;
     height: 220/@bs;
     border: 1/@bs solid #aaaaaa;
+    color: #1c1c1c;
+    font-size: 24/@bs;
   }
 }
 .baseInfo{

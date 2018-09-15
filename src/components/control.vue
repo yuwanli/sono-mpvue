@@ -46,10 +46,7 @@ export default {
         })
         return
       }
-      console.log(this.goods_number)
-      console.log(this.remained_number)
       if (this.goods_number < this.remained_number) {
-        console.log(this.id)
         if (this.id) {
           cartEdit({
             id: this.id,

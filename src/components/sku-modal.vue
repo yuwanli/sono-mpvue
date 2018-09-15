@@ -74,9 +74,7 @@ export default {
       })
     },
     plus () {
-      console.log('2222')
       this.cartData.goods_number += 1
-      console.log(this.cartData)
     },
     sub () {
       this.cartData.goods_number -= 1

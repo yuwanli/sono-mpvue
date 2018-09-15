@@ -1,6 +1,6 @@
 <template>
-  <div class="container">
-    <button open-type="getUserInfo" lang="zh_CN" @getuserinfo='onGotUserInfo'>授权登陆</button>
+  <div class="container no-header">
+    <button class="login" open-type="getUserInfo" lang="zh_CN" @getuserinfo='onGotUserInfo'>授权登陆</button>
   </div>
 </template>
 
@@ -35,15 +35,11 @@ export default {
           if (wx.callbacks[this.mid]) {
             wx.callbacks[this.mid]()
             delete wx.callbacks[this.mid]
-            console.log(wx.callbacks)
           }
         })
       } else {
 
       }
-    },
-    test (res) {
-      console.log(res)
     }
 
   },
@@ -54,6 +50,17 @@ export default {
 }
 </script>
 
-<style scoped>
-
+<style lang="less" scoped>
+@import '~src/utils/less/var.less';
+.login{
+  margin: 180/@bs auto;
+  width: 380/@bs;
+  height: 50/@bs;
+  border: none;
+  border-radius: 20/@bs;
+  background-color: #ff434c;
+  color: #fff;
+  font-size: 24/@bs;
+  line-height: 50/@bs;
+}
 </style>

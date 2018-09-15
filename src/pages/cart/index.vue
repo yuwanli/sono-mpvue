@@ -120,9 +120,6 @@ export default {
                         } else {
                           this.openAddress()
                         }
-                      },
-                      fail: function (err) {
-                        console.log(err)
                       }
                     })
                   } else {

@@ -72,7 +72,6 @@ export default {
           return val
         })
         this.list = this.list.concat(data)
-        console.log(this.list)
         this.hasMore = (data.length >= this.pageNum)
         !this.initFlag && (this.initFlag = true)
       }).catch(() => {
