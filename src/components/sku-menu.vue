@@ -14,12 +14,20 @@
         <p>个人中心</p>
       </div>
     </div>
-    <div class="sku_item cart" @click="openSku">
-      加入购物车
-    </div>
-    <div class="sku_item buy" @click="addAndPay">
-      立即购买
-    </div>
+    <template v-if="data.remained_number == 0">
+      <div class="sku_item noMore" @click="noMoreClick">
+        该产品已售罄  <span>我要预定</span>
+      </div>
+    </template>
+    <template v-else>
+       <div class="sku_item cart" @click="openSku">
+        加入购物车
+      </div>
+      <div class="sku_item buy" @click="addAndPay">
+        立即购买
+      </div>
+    </template>
+
     <sku-modal v-if="ifSku" :data="data" @hideSku="hideSku"></sku-modal>
   </div>
 </template>
@@ -44,14 +52,12 @@ export default {
         url: `/pages/${str}/main`
       })
     },
+    noMoreClick () {
+      wx.navigateTo({
+        url: `/pages/reserve/main?id=${this.data.good_id}`
+      })
+    },
     openSku () {
-      if (parseInt(this.data.remained_number) === 0) {
-        wx.showToast({
-          title: '商品暂无库存',
-          icon: 'none'
-        })
-        return
-      }
       this.ifSku = true
     },
     hideSku () {
@@ -114,6 +120,15 @@ export default {
       background-color: @darkRed;
       color: #fff;
     }
+    &.noMore{
+      background-color: #90bb34;
+      color: #fff;
+      flex: 0 0 320/@bs;
+      span{
+        text-decoration: underline;
+        margin-left: 20/@bs;
+      }
+    }
   }
   &_icons{
     display: flex;
@@ -128,7 +143,6 @@ export default {
       align-items: center;
       flex-direction: column;
       justify-content: center;
-      // min-width: 90/@bs;/
       padding: 0 20/@bs;
       .icon{
         width: 45/@bs;

@@ -1,17 +1,43 @@
 <template>
   <div class="header">
     <!-- <div class="icon like"></div> -->
-    <image class="icon like" src="/assets/images/like.png"></image>
+    <image @click="openWeb" class="icon like" src="/assets/images/like.png"></image>
     <div class="center">
       <image class="icon logo" src="/assets/images/logo.png"></image>
       <p>南北农产品 优选平台</p>
     </div>
-    <image class="icon info" src="/assets/images/info.png"></image>
+    <div @click="goToInfo" class="message">
+      <image class="icon info" src="/assets/images/info.png"></image>
+      <div v-if="user.message" class="message-label"></div>
+    </div>
+
   </div>
 </template>
 
 <script>
+import store from 'src/store'
 export default {
+  data () {
+    return {
+    }
+  },
+  computed: {
+    user: () => {
+      return store.state.user
+    }
+  },
+  methods: {
+    openWeb () {
+      wx.navigateTo({
+        url: `/pages/web_view/main`
+      })
+    },
+    goToInfo () {
+      wx.navigateTo({
+        url: `/pages/info/main`
+      })
+    }
+  }
 }
 </script>
 
@@ -19,44 +45,60 @@ export default {
 @import '~src/utils/less/var.less';
 .header{
   position: fixed;
-  width: 100%;
+  top:0;
+  left: 0;
+  z-index:1000000;
+  display: flex;
+  align-items:center;
+  justify-content: space-between;
   box-sizing: border-box;
+  padding: 0 30/@bs;
+  width: 100%;
   height: 100/@bs;
   background-color: #91bb35;
-  color: #fff;
-  z-index:1000;
   box-shadow: 0 0 10/@bs #91bb35;
-  display: flex;
-  padding: 0 30/@bs;
-  justify-content: space-between;
-  align-items:center;
-  left: 0;
-  top:0;
+  color: #fff;
   .icon{
     &.like{
       width: 32/@bs;
       height: 28/@bs;
     }
     &.info{
-      height: 32/@bs;
       width: 28/@bs;
+      height: 32/@bs;
     }
     &.logo{
       width: 132/@bs;
       height: 38/@bs;
     }
   }
+  .message{
+    position: relative;
+    width: 28/@bs;
+    height: 32/@bs;
+    transform-origin: top center;
+    &-label{
+      position: absolute;
+      top:0;
+      right: 0;
+      width: 16/@bs;
+      height: 16/@bs;
+      border-radius: 50%;
+      background-color: red;
+    }
+  }
   .center{
-    flex: 1;
     display: flex;
-    justify-content: center;
     align-items: center;
+    flex: 1;
     flex-direction: column;
+    justify-content: center;
     p{
-      font-size: 20/@bs;
-      color: #181a1b;
       margin-top: 10/@bs;
+      color: #181a1b;
+      font-size: 20/@bs;
     }
   }
 }
+
 </style>

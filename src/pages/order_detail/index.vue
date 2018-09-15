@@ -33,6 +33,7 @@
 <script>
 import {getOrderDetail, getOrderJssdk} from './api.js'
 import title from 'src/components/title.vue'
+import {base} from 'src/mixins/base.js'
 export default {
   data () {
     return {
@@ -40,7 +41,8 @@ export default {
       address: {}
     }
   },
-  onLoad () {
+  mixins: [base],
+  onShow () {
     getOrderDetail(this.$root.$mp.query.id).then(res => {
       this.order = res.orderGood
       this.address = res.orderUser

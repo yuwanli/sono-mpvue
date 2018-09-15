@@ -36,6 +36,7 @@
 <script>
 import {getUserInfo, getOrderList} from './api.js'
 import loading from 'src/components/loading.vue'
+import {base} from 'src/mixins/base.js'
 export default {
   data () {
     return {
@@ -59,10 +60,13 @@ export default {
   components: {
     'sono-loading': loading
   },
+  mixins: [base],
   onLoad () {
     getUserInfo().then(res => {
       this.userInfo = res
     })
+  },
+  onShow () {
     this.loadData(false)
   },
   methods: {
@@ -126,10 +130,6 @@ export default {
         url: `/pages/detail/main?id=${id}`
       })
     }
-  },
-
-  created () {
-
   }
 }
 </script>

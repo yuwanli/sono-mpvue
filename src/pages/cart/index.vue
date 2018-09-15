@@ -47,7 +47,7 @@
 import {getCartList, addOrder, deleteCart} from './api'
 import control from 'src/components/control.vue'
 import title from 'src/components/title.vue'
-
+import {base} from 'src/mixins/base.js'
 export default {
   data () {
     return {
@@ -64,6 +64,7 @@ export default {
       return res
     }
   },
+  mixins: [base],
   components: {
     control,
     title

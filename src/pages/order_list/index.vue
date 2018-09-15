@@ -9,6 +9,8 @@
 
 <script>
 import {getOrderList} from './api.js'
+import {base} from 'src/mixins/base.js'
+
 export default {
   data () {
     return {
@@ -16,11 +18,12 @@ export default {
       list: ''
     }
   },
-  onLoad () {
+  onShow () {
     getOrderList().then(res => {
       this.list = res.list
     })
   },
+  mixins: [base],
   computed: {
 
   },

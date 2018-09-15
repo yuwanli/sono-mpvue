@@ -5,17 +5,18 @@
     "pages/all/main",
     "pages/order_detail/main",
     "pages/order_list/main",
+    "pages/web_view/main",
     "pages/cart/main",
-    "pages/demo/index/main",
-    "pages/demo/counter/main",
+    "pages/reserve/main",
     "pages/login/main",
+    "pages/info/main",
     "pages/order_detail/success/main",
     "pages/detail/main"
   ],
   "window": {
     "backgroundTextStyle": "light",
     "navigationBarBackgroundColor": "#1c1b20",
-    "navigationBarTitleText": "sono",
+    "navigationBarTitleText": "南屋北舍",
     "navigationBarTextStyle": "white"
   },
   "tabBar": {

@@ -33,11 +33,8 @@ export default {
   },
   computed: {
   },
-  onShow () {
+  onLoad () {
     this.loadData(false)
-  },
-  test () {
-    console.log('in')
   },
   methods: {
     orderList () {

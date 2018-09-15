@@ -38,12 +38,10 @@ export default {
     getIndexList().then(res => {
       this.list = res.recommend
       this.images = res.image
-      console.log(this.list)
     })
   },
   methods: {
     clickHandle (id) {
-      console.log('111')
       wx.navigateTo({
         url: `/pages/detail/main?id=${id}`
       })

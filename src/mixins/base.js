@@ -1,15 +1,28 @@
+// user/info
+import {ajax} from 'src/utils/ajax'
+import store from 'src/store'
+
+const getUserInfo = () => {
+  return new Promise((resolve, reject) => {
+    ajax({
+      sono: 'user/info',
+      method: 'POST',
+      hideLoading: true
+    }).then(res => {
+      resolve(res)
+    })
+  })
+}
 export const base = {
-  data: function () {
-    return {
-      test: 'hello'
-    }
-  },
-  onShow () {
-    // console.log('show')
+  onLoad () {
+    Object.assign(this.$data, this.$options.data())
+    this.updateUserStatus()
   },
   methods: {
-    testFn () {
-      console.log('1111')
+    updateUserStatus () {
+      getUserInfo().then(res => {
+        store.commit('setUserStatus', res)
+      })
     }
   }
 }

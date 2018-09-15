@@ -72,7 +72,6 @@ export default {
 @import url("~mpvue-wxparse/src/wxParse.css");
 .container{
   background-color: @grayBg;
-  padding-bottom: 80/@bs;
 }
 .content{
   background-color: #fff;
@@ -96,33 +95,5 @@ export default {
     font-size: 30/@bs;
     line-height: 42/@bs;
   }
-}
-.add-cart{
-  position: fixed;
-  bottom: 20px;
-  left: 20px;
-  z-index: 100;
-  width: 100px;
-  height: 50px;
-  border-radius: 5px;
-  background-color: yellowgreen;
-  color: #fff;
-  text-align: center;
-  font-size: 20px;
-  line-height: 50px;
-}
-.to-cart{
-  position: fixed;
-  right: 20px;
-  bottom: 20px;
-  z-index: 100;
-  width: 100px;
-  height: 50px;
-  border-radius: 5px;
-  background-color: rebeccapurple;
-  color: #fff;
-  text-align: center;
-  font-size: 20px;
-  line-height: 50px;
 }
 </style>
