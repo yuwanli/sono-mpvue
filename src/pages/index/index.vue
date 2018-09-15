@@ -24,7 +24,8 @@ export default {
   data () {
     return {
       list: [],
-      images: []
+      images: [],
+      initFlag: false
     }
   },
   mixins: [base],
@@ -34,13 +35,20 @@ export default {
   },
   computed: {
   },
+  onLoad () {
+    this.init()
+  },
   onShow () {
-    getIndexList().then(res => {
-      this.list = res.recommend
-      this.images = res.image
-    })
+    this.initFlag && this.init(true)
   },
   methods: {
+    init (hideLoading) {
+      getIndexList(hideLoading).then(res => {
+        this.list = res.recommend
+        this.images = res.image
+        this.initFlag = true
+      })
+    },
     clickHandle (id) {
       wx.navigateTo({
         url: `/pages/detail/main?id=${id}`

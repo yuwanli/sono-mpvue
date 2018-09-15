@@ -8,7 +8,7 @@
           <!-- <span class="num">订单数:{{userInfo.user.order_num}}</span> -->
         </div>
       </div>
-      <div class="order_num">订单数量（{{userInfo.user.order_num}}）</div>
+      <div class="order_num">订单数量（{{userInfo.user.order_num || 0}}）</div>
       <div v-for="item in list" @click="toDetail(item.good_id)" v-bind:key="item.id" class="item">
         <div class="item_base">
           <span class="num">订单号：{{item.order_sn}}</span>
@@ -34,42 +34,48 @@
 </template>
 
 <script>
-import {getUserInfo, getOrderList} from './api.js'
+import {getOrderList} from './api.js'
 import loading from 'src/components/loading.vue'
 import {base} from 'src/mixins/base.js'
+import store from 'src/store'
 export default {
   data () {
     return {
       status: [
         '未支付', '已取消', '待发货', '已发货', '待评价', '已完成'
       ],
-      userInfo: {
-        user: {}
-      },
       nowTime: new Date().getTime(),
       list: [],
       page: 1,
       pageNum: 10,
       loading: false,
       hasMore: true,
-      initFlag: true
+      initFlag: false
     }
   },
   computed: {
+    userInfo: () => {
+      return store.state.user
+    }
   },
   components: {
     'sono-loading': loading
   },
   mixins: [base],
   onLoad () {
-    getUserInfo().then(res => {
-      this.userInfo = res
-    })
+    this.init()
   },
   onShow () {
-    this.loadData(false)
+    this.list = []
+    this.page = 1
+    this.hasMore = true
+    this.loading = false
+    this.initFlag && this.init(true)
   },
   methods: {
+    init (hideLoading) {
+      this.loadData(hideLoading)
+    },
     formatDate (s) {
       let date = new Date(s)
       let y = date.getFullYear() < 10 ? '0' + date.getFullYear() : date.getFullYear()

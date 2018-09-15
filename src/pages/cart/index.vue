@@ -33,7 +33,7 @@
         </div>
       </div>
       <p class="tips">开具发票：购买后，在“我的订单”申请</p>
-      <p class="total">合计：￥{{total}}</p>
+      <p class="total">合计：￥{{total || 0}}</p>
       <div class="submit" @click="toOrder">去结算</div>
     </template>
     <div class="no-data" v-else>
@@ -52,7 +52,8 @@ export default {
   data () {
     return {
       cart: [{}],
-      address: {}
+      address: {},
+      initFlag: false
     }
   },
   computed: {
@@ -69,13 +70,20 @@ export default {
     control,
     title
   },
+  onLoad () {
+    this.init()
+  },
   onShow () {
-    getCartList().then(res => {
-      this.cart = res.cart
-      this.addressId = res.address.id
-    })
+    this.initFlag && this.init(true)
   },
   methods: {
+    init (hideLoading) {
+      getCartList(hideLoading).then(res => {
+        this.cart = res.cart
+        this.addressId = res.address.id
+        this.initFlag = true
+      })
+    },
     goIndexPage () {
       wx.switchTab({
         url: `/pages/index/main`

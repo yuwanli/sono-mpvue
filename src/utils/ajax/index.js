@@ -75,6 +75,9 @@ export const ajax = (options) => {
         if (errcode === 0) {
           resolve(resp.data)
         } else if (errcode === -1) {
+          if (options.noLogin) { // 无需登陆的接口
+            return
+          }
           let mid = Math.floor(Math.random() * 1000) + (new Date().getTime()
             .toString()
             .slice(CUT_START))

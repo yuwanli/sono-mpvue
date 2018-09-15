@@ -1,5 +1,4 @@
 
-// import store from 'src/store'
 export const getWxData = (mid) => {
   wx.login({
     success (res) {

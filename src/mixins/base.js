@@ -7,7 +7,8 @@ const getUserInfo = () => {
     ajax({
       sono: 'user/info',
       method: 'POST',
-      hideLoading: true
+      hideLoading: true,
+      noLogin: true// 无需登陆
     }).then(res => {
       resolve(res)
     })

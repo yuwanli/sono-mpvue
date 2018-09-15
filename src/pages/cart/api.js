@@ -1,10 +1,11 @@
 import {ajax} from 'src/utils/ajax'
 
-export const getCartList = (id) => {
+export const getCartList = (hideLoading) => {
   return new Promise((resolve, reject) => {
     ajax({
       sono: 'cart/list',
-      method: 'POST'
+      method: 'POST',
+      hideLoading
     }).then(res => {
       resolve(res)
     })
