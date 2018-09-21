@@ -10,7 +10,7 @@
           <div class="address_info">{{address.provinceName}}{{address.cityName}}{{address.countyName}}{{address.detailInfo}}</div>
           <div class="address_btn" @click="openAddress">其他地址<image src="/assets/images/icon_down.png"></image></div>
         </template>
-        <div v-else class="address_new"  @click="openAddress">新增地址</div>
+        <button v-else class="address_new"  @click="openAddress">新增地址</button>
       </div>
       <div class="title">南屋北舍</div>
       <div class="item" v-for="(item,index) in cart" :key="item.id">
@@ -26,7 +26,7 @@
               <span class="delete" @click="delCart(item.id,index)">删除</span>
             </div>
             <div class="con control">
-              <control :id="item.id" :goods_number="item.goods_number" :remained_number="item.remained_number"></control>
+              <control v-if="item.goods_number" :id="item.id" :goods_number="item.goods_number" :remained_number="item.remained_number"></control>
               <span class="num">&times;{{item.goods_number}}</span>
             </div>
           </div>
@@ -72,6 +72,7 @@ export default {
   },
   onLoad () {
     this.init()
+    this.address = JSON.parse(wx.getStorageSync('sono-address'))
   },
   onShow () {
     this.initFlag && this.init(true)
@@ -79,9 +80,9 @@ export default {
   methods: {
     init (hideLoading) {
       getCartList(hideLoading).then(res => {
-        this.cart = res.cart
         this.addressId = res.address.id
         this.initFlag = true
+        this.cart = res.cart
       })
     },
     goIndexPage () {
@@ -106,45 +107,48 @@ export default {
         }
       })
     },
+    getSetting () {
+      return new Promise((resolve, reject) => {
+        wx.getSetting({
+          success (res3) {
+            resolve(res3.authSetting)
+          },
+          fail (err) {
+            reject(err)
+          }
+        })
+      })
+    },
     openAddress () {
       let _this = this
       if (wx.chooseAddress) {
-        wx.getSetting({
-          success: (res) => {
-            if (!res.authSetting['scope.address']) {
-              wx.showModal({
-                title: '提示',
-                content: '请允许并勾选地址信息的获取，以确保正常使用',
-                success (res2) {
-                  if (res2.confirm) {
-                    wx.openSetting({
-                      success (res3) {
-                        if (res3.authSetting['scope.address']) {
-                          wx.chooseAddress({
-                            success: function (resp) {
-                              _this.address = resp
-                            }
-                          })
-                        } else {
-                          this.openAddress()
+        wx.chooseAddress({
+          success: function (resp) {
+            _this.address = resp
+            wx.setStorageSync('sono-address', JSON.stringify(resp))
+          },
+          fail: function () {
+            _this.getSetting().then(res => {
+              if (!res['scope.address']) {
+                wx.showModal({
+                  title: '提示',
+                  content: '获取用户收获地址信息失败，点击‘确定’授权用户收货地址信息',
+                  confirmText: '去授权',
+                  success: function (resp2) {
+                    if (resp2.confirm) {
+                      wx.openSetting({
+                        success (res3) {
+                          console.log(res3)
+                          if (res3.authSetting['scope.address']) {
+                            _this.openAddress()
+                          }
                         }
-                      }
-                    })
-                  } else {
-                    wx.showToast({
-                      title: '地址信息获取失败',
-                      icon: 'none'
-                    })
+                      })
+                    }
                   }
-                }
-              })
-            } else {
-              wx.chooseAddress({
-                success: function (resp) {
-                  _this.address = resp
-                }
-              })
-            }
+                })
+              }
+            })
           }
         })
       } else {
@@ -236,6 +240,9 @@ export default {
     justify-content: center;
     height: 30/@bs;
     color: rgba(0,0,0,0.6);
+    border: 1px solid rgba(0,0,0,0);
+    background: none;
+    font-size: 24/@bs;
     image{
       margin-left: 5/@bs;
       width: 30/@bs;

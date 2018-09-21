@@ -11,7 +11,7 @@
 	"compileType": "miniprogram",
 	"appid": "wx3fbba95fb4902cd9",
 	"projectname": "sono-mpvue",
-	"libVersion": "2.2.3",
+	"libVersion": "2.3.0",
 	"condition": {
 		"search": {
 			"current": -1,

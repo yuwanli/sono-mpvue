@@ -50,18 +50,17 @@ export default {
         if (this.id) {
           cartEdit({
             id: this.id,
-            goods_number: this.goods_number + 1
+            goods_number: parseInt(this.goods_number) + 1
           }).then(res => {
-            this.goods_number += 1
+            this.goods_number = parseInt(this.goods_number) + 1
           })
         } else {
           // this.$emit('plus')
-          this.goods_number += 1
+          this.goods_number = parseInt(this.goods_number) + 1
         }
       }
     }
   }
-
 }
 </script>
 
