@@ -55,7 +55,7 @@ export default {
   },
   computed: {
     userInfo: () => {
-      return store.state.user
+      return store.state.user || {user: {}}
     }
   },
   components: {

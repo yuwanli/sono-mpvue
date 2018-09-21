@@ -6,12 +6,14 @@
 
 <script>
 import { ajax } from 'src/utils/ajax'
+import {base} from 'src/mixins/base.js'
 export default {
   data () {
     return {
       mid: ''
     }
   },
+  mixins: [base],
   computed: {
   },
   onLoad (options) {
@@ -20,6 +22,7 @@ export default {
   methods: {
     onGotUserInfo (res) {
       if (res.target.userInfo) {
+        this.updateUserStatus()
         let data = {
           encryptedData: res.target.encryptedData,
           iv: res.target.iv,
@@ -37,8 +40,6 @@ export default {
             delete wx.callbacks[this.mid]
           }
         })
-      } else {
-
       }
     }
 

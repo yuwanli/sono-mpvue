@@ -83,9 +83,7 @@ export const ajax = (options) => {
             .slice(CUT_START))
           !wx.callbacks && (wx.callbacks = {})
           wx.callbacks[mid] = () => {
-            ajax(options).then(resCall => {
-              resolve(resCall)
-            })
+            resolve(ajax(options))
           }
           getWxData(mid)
         } else {
