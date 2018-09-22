@@ -31,9 +31,11 @@ export default {
             goods_number: this.goods_number - 1
           }).then(res => {
             this.goods_number -= 1
+            this.$emit('controlChange', this.goods_number)
           })
         } else {
           this.goods_number -= 1
+          this.$emit('controlChange', this.goods_number)
         }
       }
     },
@@ -53,11 +55,18 @@ export default {
             goods_number: parseInt(this.goods_number) + 1
           }).then(res => {
             this.goods_number = parseInt(this.goods_number) + 1
+            this.$emit('controlChange', this.goods_number)
           })
         } else {
-          // this.$emit('plus')
           this.goods_number = parseInt(this.goods_number) + 1
+          this.$emit('controlChange', this.goods_number)
         }
+      } else {
+        wx.showToast({
+          title: '暂无更多库存',
+          icon: 'none',
+          duration: 2000
+        })
       }
     }
   }

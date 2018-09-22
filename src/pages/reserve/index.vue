@@ -3,7 +3,7 @@
     <sono-header></sono-header>
     <div class="baseInfo">
       <h1>{{data.title}}</h1>
-      <p>{{data.price}}</p>
+      <p>{{data.price}}元</p>
     </div>
     <div class="form">
       <h1>到货通知我</h1>
@@ -11,6 +11,7 @@
         <div class="form_item-name">姓名</div>
         <input adjust-position=true auto-focus v-model="formData.content_name" placeholder-style="color: #6b6d6f" class="form_item-input" type="text" placeholder="请填写姓名">
       </div>
+      <div class="tips"><span></span>手机和邮箱，可任选其一</div>
       <div class="form_item">
         <div class="form_item-name">手机</div>
         <input adjust-position=true v-model="formData.content_mobile" placeholder-style="color: #6b6d6f" class="form_item-input" type="number" placeholder="请填写你的手机号">
@@ -63,16 +64,13 @@ export default {
       if (!this.formData.content_name) {
         this.errorMsg = '请填写你的姓名'
         return false
-      } else if (!this.formData.content_mobile) {
-        this.errorMsg = '请填写你的手机号'
+      } else if (!this.formData.content_mobile && !this.formData.content_email) {
+        this.errorMsg = '为了能第一时间通知你，请填写手机号或邮箱'
         return false
-      } else if (!phoneReg.test(this.formData.content_mobile)) {
+      } else if (this.formData.content_mobile && !phoneReg.test(this.formData.content_mobile)) {
         this.errorMsg = '手机号格式有误，请正确填写'
         return false
-      } else if (!this.formData.content_email) {
-        this.errorMsg = '请填写你的邮箱'
-        return false
-      } else if (!emailReg.test(this.formData.content_email)) {
+      } else if (this.formData.content_email && !emailReg.test(this.formData.content_email)) {
         this.errorMsg = '邮箱格式有误，请正确填写'
         return false
       } else if (!this.formData.content_wechat) {
@@ -134,6 +132,7 @@ export default {
 .content{
   background-color: #fff;
 }
+
 .form{
   margin: 10/@bs 0;
   padding: 30/@bs;
@@ -143,6 +142,25 @@ export default {
     margin-bottom: 30/@bs;
     font-weight: bold;
     font-size: 30/@bs;
+  }
+  .tips{
+    color: #b4282d;
+    font-size: 20/@bs;
+    text-align: center;
+    line-height: 30/@bs;
+    margin-top: 30/@bs;
+    margin-bottom: 10/@bs;
+    height: 30/@bs;
+    span{
+      display: inline-block;
+      vertical-align: top;
+      width: 10/@bs;
+      height: 10/@bs;
+      border-radius: 50%;
+      margin-top: 10/@bs;
+      margin-right: 10/@bs;
+      background-color: #b4282d;
+    }
   }
   &_item{
     display: flex;

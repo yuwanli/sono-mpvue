@@ -1,7 +1,7 @@
 <template>
   <div class="header">
     <!-- <div class="icon like"></div> -->
-    <image @click="openWeb" class="icon like" src="/assets/images/like.png"></image>
+    <!-- <image @click="openWeb" class="icon like" src="/assets/images/like.png"></image> -->
     <div class="center">
       <image class="icon logo" src="/assets/images/logo.png"></image>
       <p>南北农产品 优选平台</p>

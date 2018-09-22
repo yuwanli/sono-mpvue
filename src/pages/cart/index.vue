@@ -26,7 +26,7 @@
               <span class="delete" @click="delCart(item.id,index)">删除</span>
             </div>
             <div class="con control">
-              <control v-if="item.goods_number" :id="item.id" :goods_number="item.goods_number" :remained_number="item.remained_number"></control>
+              <control v-if="item.goods_number" :id="item.id" :goods_number="item.goods_number" :remained_number="item.remained_number" @controlChange="controlChange($event,item)"></control>
               <span class="num">&times;{{item.goods_number}}</span>
             </div>
           </div>
@@ -62,7 +62,7 @@ export default {
       this.cart.length > 0 && this.cart.forEach(val => {
         res += val.goods_number * val.goods_price
       })
-      return res
+      return res.toFixed(2)
     }
   },
   mixins: [base],
@@ -82,8 +82,15 @@ export default {
       getCartList(hideLoading).then(res => {
         this.addressId = res.address.id
         this.initFlag = true
+        res.cart.forEach(val => {
+          val.remained_number = (+val.goods_number) + (+val.remained_number)
+        })
         this.cart = res.cart
+        console.log(this.cart)
       })
+    },
+    controlChange (num, item) {
+      item.goods_number = num
     },
     goIndexPage () {
       wx.switchTab({
@@ -132,7 +139,7 @@ export default {
               if (!res['scope.address']) {
                 wx.showModal({
                   title: '提示',
-                  content: '获取用户收获地址信息失败，点击‘确定’授权用户收货地址信息',
+                  content: '获取用户收货地址信息失败，点击‘确定’授权用户收货地址信息',
                   confirmText: '去授权',
                   success: function (resp2) {
                     if (resp2.confirm) {
@@ -161,7 +168,7 @@ export default {
     toOrder () {
       if (!this.address.detailInfo) {
         wx.showToast({
-          title: '请选择你的收获地址',
+          title: '请选择你的收货地址',
           icon: 'none'
         })
         return
