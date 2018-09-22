@@ -63,6 +63,12 @@ export default {
         url: '/pages/cart/main'
       })
     }
+  },
+  onShareAppMessage () {
+    return {
+      title: this.data.title,
+      path: `/pages/detail/main?id=${this.$root.$mp.query.id}`
+    }
   }
 }
 </script>
@@ -72,6 +78,7 @@ export default {
 @import url("~mpvue-wxparse/src/wxParse.css");
 .container{
   background-color: @grayBg;
+  padding-bottom: 80/@bs;
 }
 .content{
   background-color: #fff;
