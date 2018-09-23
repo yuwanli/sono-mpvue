@@ -86,7 +86,6 @@ export default {
           val.remained_number = (+val.goods_number) + (+val.remained_number)
         })
         this.cart = res.cart
-        console.log(this.cart)
       })
     },
     controlChange (num, item) {
@@ -145,7 +144,6 @@ export default {
                     if (resp2.confirm) {
                       wx.openSetting({
                         success (res3) {
-                          console.log(res3)
                           if (res3.authSetting['scope.address']) {
                             _this.openAddress()
                           }

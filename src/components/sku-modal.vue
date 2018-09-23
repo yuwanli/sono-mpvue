@@ -61,7 +61,7 @@ export default {
       cartAdd({
         goods_id: this.data.good_id,
         product_id: this.data.product_id,
-        goods_number: 1
+        goods_number: this.$refs.control.goods_number || 1
       }).then(res => {
         // wx.showToast({
         //   title: '加购成功',
