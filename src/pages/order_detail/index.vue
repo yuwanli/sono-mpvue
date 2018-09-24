@@ -58,7 +58,7 @@ export default {
       this.order.length > 0 && this.order.forEach(val => {
         res += val.number * val.shop_price
       })
-      return res
+      return res.toFixed(2)
     }
   },
   methods: {
