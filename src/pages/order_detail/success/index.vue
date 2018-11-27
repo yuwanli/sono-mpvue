@@ -4,8 +4,7 @@
       <div class="text">支付成功</div>
       <image src="/assets/images/logo2.png"></image>
       <p>sono.mobi</p>
-      <div class="btn order">查看订单</div>
-      <div class="btn good">查看商品</div>
+      <div class="btn order" @click="toOrder">查看订单</div>
     </div>
   </div>
 </template>
@@ -15,7 +14,15 @@ export default {
   data () {
     return {
     }
+  },
+  methods: {
+    toOrder () {
+      wx.switchTab({
+        url: `/pages/user/main`
+      })
+    }
   }
+
 }
 </script>
 
