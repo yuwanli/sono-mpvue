@@ -71,7 +71,7 @@ export default {
               title: '支付成功'
             })
             wx.navigateTo({
-              url: `/pages/order-detail/success/main`
+              url: `/pages/order_detail/success/main`
             })
           },
           fail: function (res) {

@@ -51,7 +51,7 @@ import {base} from 'src/mixins/base.js'
 export default {
   data () {
     return {
-      cart: [{}],
+      cart: [],
       address: {},
       initFlag: false
     }
