@@ -72,7 +72,9 @@ export default {
   },
   onLoad () {
     this.init()
-    this.address = JSON.parse(wx.getStorageSync('sono-address'))
+    if (wx.getStorageSync('sono-address')) {
+      this.address = JSON.parse(wx.getStorageSync('sono-address'))
+    }
   },
   onShow () {
     this.initFlag && this.init(true)
@@ -80,12 +82,14 @@ export default {
   methods: {
     init (hideLoading) {
       getCartList(hideLoading).then(res => {
-        this.addressId = res.address.id
         this.initFlag = true
         res.cart.forEach(val => {
           val.remained_number = (+val.goods_number) + (+val.remained_number)
         })
         this.cart = res.cart
+        if (res.address) {
+          this.addressId = res.address.id
+        }
       })
     },
     controlChange (num, item) {
