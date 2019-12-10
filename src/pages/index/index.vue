@@ -9,7 +9,7 @@
         </block>
       </swiper> -->
       <!-- <div class="swiper"> -->
-      <video class="video" :autoplay="true" :show-progress="false" :loop="true" :enable-progress-gesture="false" src="https://image.sono.mobi/yanzhuang/WeChatSight4194.mp4"></video>
+      <video class="video" :autoplay="false" :show-mute-btn="true" :show-progress="false" :muted="false" :loop="false" :enable-progress-gesture="false" src="https://image.sono.mobi/yanzhuang/WeChatSight4194.mp4"></video>
       <!-- </div> -->
       <div class="title">精选推荐</div>
       <div class="listCon">
