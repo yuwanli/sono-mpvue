@@ -9,7 +9,7 @@
         </block>
       </swiper> -->
       <!-- <div class="swiper"> -->
-      <video class="video" :autoplay="false" :show-mute-btn="true" :show-progress="false" :muted="false" :loop="false" :enable-progress-gesture="false" src="https://image.sono.mobi/yanzhuang/WeChatSight4194.mp4"></video>
+      <video class="video" :autoplay="isWifi" :show-mute-btn="true" :show-progress="false" :muted="false" :loop="false" :enable-progress-gesture="false" src="https://image.sono.mobi/yanzhuang/WeChatSight4194.mp4"></video>
       <!-- </div> -->
       <div class="title">精选推荐</div>
       <div class="listCon">
@@ -28,7 +28,8 @@ export default {
     return {
       list: [],
       images: [],
-      initFlag: false
+      initFlag: false,
+      isWifi: false
     }
   },
   mixins: [base],
@@ -39,7 +40,13 @@ export default {
   computed: {
   },
   onLoad () {
+    const _this = this
     this.init()
+    wx.getNetworkType({
+      success (res) {
+        _this.isWifi = (res.networkType === 'wifi')
+      }
+    })
   },
   onShow () {
     this.initFlag && this.init(true)
