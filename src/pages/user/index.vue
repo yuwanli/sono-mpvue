@@ -63,14 +63,14 @@ export default {
   },
   mixins: [base],
   onLoad () {
-    this.init()
+    // this.init()
   },
   onShow () {
     this.list = []
     this.page = 1
     this.hasMore = true
     this.loading = false
-    this.initFlag && this.init(true)
+    this.init(this.initFlag)
   },
   methods: {
     init (hideLoading) {

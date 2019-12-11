@@ -1,6 +1,7 @@
 <template>
   <div class="container no-header">
     <button class="login" open-type="getUserInfo" lang="zh_CN" @getuserinfo='onGotUserInfo'>授权登陆</button>
+    <button class="cancel" type="default" lang="zh_CN" @click='cancel'>取消登陆</button>
   </div>
 </template>
 
@@ -20,6 +21,11 @@ export default {
     this.mid = options.mid
   },
   methods: {
+    cancel () {
+      wx.switchTab({
+        url: `/pages/index/main`
+      })
+    },
     onGotUserInfo (res) {
       if (res.target.userInfo) {
         this.updateUserStatus()
@@ -54,13 +60,23 @@ export default {
 <style lang="less" scoped>
 @import '~src/utils/less/var.less';
 .login{
-  margin: 180/@bs auto;
+  margin: 180/@bs auto 20/@bs;
   width: 380/@bs;
   height: 50/@bs;
   border: none;
   border-radius: 20/@bs;
   background-color: #ff434c;
   color: #fff;
+  font-size: 24/@bs;
+  line-height: 50/@bs;
+}
+.cancel{
+  margin: 0 auto 20/@bs;
+  width: 380/@bs;
+  height: 50/@bs;
+  border: none;
+  background-color:none;
+  color: #333;
   font-size: 24/@bs;
   line-height: 50/@bs;
 }
