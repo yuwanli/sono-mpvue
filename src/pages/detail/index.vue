@@ -6,7 +6,7 @@
       <p>{{data.price}}</p>
     </div>
     <div class="content">
-      <wxParse :content="data.content" />
+      <wxParse :content="data.content" ></wxParse>
     </div>
 
     <sku-menu :data="data"></sku-menu>

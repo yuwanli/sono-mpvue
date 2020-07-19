@@ -1,16 +1,13 @@
 <template>
     <div class="container">
       <sono-header></sono-header>
-      <!-- <swiper class="swiper" :indicator-dots="true" :circular="true" indicator-color="rgba(0,0,0,0.5)" indicator-active-color="#b6e429">
+      <swiper class="swiper" :indicator-dots="true" :circular="true" indicator-color="rgba(0,0,0,0.5)" indicator-active-color="#b6e429">
         <block v-for="item in images" v-bind:key="item.id">
           <swiper-item  @click="clickHandle(item.id)">
             <img mode="aspectFill" class="swiper-img" :src="item.image" />
           </swiper-item>
         </block>
-      </swiper> -->
-      <!-- <div class="swiper"> -->
-      <video class="video" :autoplay="isWifi" :show-mute-btn="true" :show-progress="false" :muted="false" :loop="false" :enable-progress-gesture="false" src="https://image.sono.mobi/yanzhuang/WeChatSight4194.mp4"></video>
-      <!-- </div> -->
+      </swiper>
       <div class="title">精选推荐</div>
       <div class="listCon">
         <item v-for="item in list" v-bind:key="item.id" :item='item'></item>
@@ -28,8 +25,7 @@ export default {
     return {
       list: [],
       images: [],
-      initFlag: false,
-      isWifi: false
+      initFlag: false
     }
   },
   mixins: [base],
@@ -40,13 +36,7 @@ export default {
   computed: {
   },
   onLoad () {
-    const _this = this
     this.init()
-    wx.getNetworkType({
-      success (res) {
-        _this.isWifi = (res.networkType === 'wifi')
-      }
-    })
   },
   onShow () {
     this.initFlag && this.init(true)
@@ -83,10 +73,6 @@ export default {
     width: 640/@bs;
     height: 330/@bs;
   }
-}
-.video{
-  width: 640/@bs;
-  height: 368/@bs;
 }
 .title{
   text-align: center;

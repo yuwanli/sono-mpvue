@@ -57,7 +57,8 @@ export const ajax = (options) => {
   serializeData(options)
   if (!options.hideLoading) {
     wx.showLoading({
-      title: '加载中'
+      title: '加载中',
+      mask: true
     })
   }
   return new Promise((resolve, reject) => {
