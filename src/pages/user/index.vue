@@ -1,7 +1,8 @@
 <template>
   <div class="container no-header">
     <scroll-view class="list" scroll-y="true" enable-back-to-top=true  @scrolltolower="loadData(true)">
-      <div class="top" style="background-image: url(http://sonotemp.b0.upaiyun.com/sono/images/user_bg.jpg)">
+      <div class="top">
+        <image class="top__bg" src="/assets/images/user_bg.jpg"></image>
         <image class="avatar" :src="userInfo.user.self_img"></image>
         <div class="content">
           <span class="name">{{userInfo.user.nick_name}}</span>
@@ -144,6 +145,8 @@ export default {
 <style lang="less" scoped>
 @import '~src/utils/less/var.less';
 .top{
+  position: relative;
+  z-index: 100;
   display: flex;
   align-items: center;
   flex-direction: row;
@@ -151,10 +154,14 @@ export default {
   margin-bottom: 10/@bs;
   padding: 30/@bs;
   height: 190/@bs;
-  background-image: url('/assets/images/user_bg.jpg');
-  background-position: center;
-  background-size: 100% auto;
-  background-repeat: no-repeat;
+  &__bg{
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: -1;
+    width: 640/@bs;
+    height: 190/@bs;
+  }
   .avatar{
     margin-right: 15/@bs;
     width: 130/@bs;
