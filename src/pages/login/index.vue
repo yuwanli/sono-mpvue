@@ -41,6 +41,7 @@ export default {
         }).then(resp => {
           wx.setStorageSync('sono_token', resp.token)
           wx.navigateBack()
+          this.updateUserStatus()
           if (wx.callbacks[this.mid]) {
             wx.callbacks[this.mid]()
             delete wx.callbacks[this.mid]

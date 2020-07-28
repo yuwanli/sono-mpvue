@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <sono-header></sono-header>
+    <sono-header :showIndex=true></sono-header>
     <div class="baseInfo">
       <h1>{{data.title}}</h1>
       <p>{{data.price}}</p>

@@ -70,7 +70,11 @@ export const ajax = (options) => {
       method: options.method,
       data: options.data,
       success: function (resp) {
-        wx.hideLoading()
+        try {
+          wx.hideLoading()
+        } catch (error) {
+          console.log(error)
+        }
         resp = resp.data
         let errcode = parseInt(resp.errcode)
         if (errcode === 0) {

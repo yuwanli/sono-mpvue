@@ -9,7 +9,7 @@
         </div>
       </div>
       <div class="order_num">订单数量（{{userInfo.user.order_num || 0}}）</div>
-      <div v-for="item in list" @click="toDetail(item.good_id)" v-bind:key="item.id" class="item">
+      <div v-for="item in list" @click="toDetail(item)" v-bind:key="item" class="item">
         <div class="item_base">
           <span class="num">订单号：{{item.order_sn}}</span>
           <span class="status">{{status[item.order_status-1]}}</span>
@@ -42,7 +42,7 @@ export default {
   data () {
     return {
       status: [
-        '未支付', '已取消', '待发货', '已发货', '待评价', '已完成'
+        '未支付', '已取消', '待发货', '已发货', '已完成', '已完成'
       ],
       nowTime: new Date().getTime(),
       list: [],
@@ -131,9 +131,10 @@ export default {
         url: `/pages/order_detail/main?id=${id}`
       })
     },
-    toDetail (id) {
+    toDetail (item) {
+      wx.setStorageSync('sono_order_info', JSON.stringify(item))
       wx.navigateTo({
-        url: `/pages/detail/main?id=${id}`
+        url: `/pages/order_info/main`
       })
     }
   }

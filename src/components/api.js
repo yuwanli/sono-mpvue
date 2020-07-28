@@ -25,3 +25,13 @@ export const cartEdit = (data) => {
     })
   })
 }
+
+export const getCode = (id) => {
+  return ajax({
+    sono: 'order/qrcode',
+    method: 'POST',
+    data: {
+      id
+    }
+  })
+}

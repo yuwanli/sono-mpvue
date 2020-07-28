@@ -1,6 +1,6 @@
 <template>
   <div class="header">
-    <!-- <div class="icon like"></div> -->
+    <image @click="indexClick" v-if="showIndex" class="icon home" src="/assets/images/home.png"></image>
     <!-- <image @click="openWeb" class="icon like" src="/assets/images/like.png"></image> -->
     <div class="center">
       <image class="icon logo" src="/assets/images/logo.png"></image>
@@ -17,6 +17,12 @@
 <script>
 import store from 'src/store'
 export default {
+  props: {
+    showIndex: {
+      type: Boolean,
+      default: false
+    }
+  },
   data () {
     return {
     }
@@ -27,11 +33,16 @@ export default {
     }
   },
   methods: {
-    openWeb () {
-      wx.navigateTo({
-        url: `/pages/web_view/main`
+    indexClick () {
+      wx.switchTab({
+        url: `/pages/index/main`
       })
     },
+    // openWeb () {
+    //   wx.navigateTo({
+    //     url: `/pages/web_view/main`
+    //   })
+    // },
     goToInfo () {
       wx.navigateTo({
         url: `/pages/info/main`
@@ -47,7 +58,7 @@ export default {
   position: fixed;
   top:0;
   left: 0;
-  z-index:1000000;
+  z-index:1000;
   display: flex;
   align-items:center;
   justify-content: space-between;
@@ -59,9 +70,9 @@ export default {
   box-shadow: 0 0 10/@bs #91bb35;
   color: #fff;
   .icon{
-    &.like{
-      width: 32/@bs;
-      height: 28/@bs;
+    &.home{
+      width: 45/@bs;
+      height: 45/@bs;
     }
     &.info{
       width: 28/@bs;

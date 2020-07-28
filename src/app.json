@@ -4,6 +4,7 @@
     "pages/user/main",
     "pages/all/main",
     "pages/order_detail/main",
+    "pages/order_info/main",
     "pages/order_list/main",
     "pages/web_view/main",
     "pages/cart/main",

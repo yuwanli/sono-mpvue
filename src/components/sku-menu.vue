@@ -1,9 +1,9 @@
 <template>
   <div class="sku">
     <div class="sku_icons">
-      <div class="sku_icons-item" @click="iconClick('index')">
-        <image class="icon home" src="/assets/images/home.png"></image>
-        <p>首页</p>
+      <div class="sku_icons-item" @click="shareClick">
+        <image class="icon home" src="/assets/images/share.png"></image>
+        <p>分享</p>
       </div>
       <div class="sku_icons-item" @click="iconClick('cart')">
         <image class="icon cart" src="/assets/images/cart.png"></image>
@@ -29,24 +29,37 @@
     </template>
 
     <sku-modal v-if="ifSku" :data="data" @hideSku="hideSku"></sku-modal>
+    <share v-if="ifShare" :detail="data" :icon="icon" @hideShare="hideShare"></share>
   </div>
 </template>
 
 <script>
 import skuModal from './sku-modal.vue'
-import {cartAdd} from './api.js'
+import share from './share.vue'
+import {cartAdd, getCode} from './api.js'
 
 export default {
   data () {
     return {
-      ifSku: false
+      ifSku: false,
+      ifShare: false,
+      icon: ''
     }
   },
   props: ['data'],
   components: {
-    'sku-modal': skuModal
+    'sku-modal': skuModal,
+    share
   },
   methods: {
+    hideShare () {
+      this.ifShare = false
+    },
+    async shareClick () {
+      const res = await getCode(this.data.good_id)
+      this.icon = res
+      this.ifShare = true
+    },
     iconClick (str) {
       wx.switchTab({
         url: `/pages/${str}/main`
@@ -121,12 +134,12 @@ export default {
       color: #fff;
     }
     &.noMore{
+      flex: 0 0 320/@bs;
       background-color: #90bb34;
       color: #fff;
-      flex: 0 0 320/@bs;
       span{
-        text-decoration: underline;
         margin-left: 20/@bs;
+        text-decoration: underline;
       }
     }
   }
