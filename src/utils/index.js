@@ -76,10 +76,6 @@ export const generateShareImg = async (canvasId, obj, qrcode) => {
     ratio = res.windowWidth / 640
     wx.ratio = ratio
   }
-
-  wx.showToast({
-    title: '开始'
-  })
   const [image, imageInfo, avatar] = await Promise.all([
     downloadFileAsync(obj.thumb),
     wxFun2Async('getImageInfo', {

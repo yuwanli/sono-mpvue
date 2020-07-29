@@ -32,6 +32,10 @@ export const getCode = (id) => {
     method: 'POST',
     data: {
       id
+    },
+    query: {
+      id
     }
+
   })
 }

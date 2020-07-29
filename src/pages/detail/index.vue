@@ -38,7 +38,7 @@ export default {
   },
   mixins: [base],
   onLoad () {
-    getDetail(this.$root.$mp.query.id).then(res => {
+    getDetail(this.$root.$mp.query.id || this.$root.$mp.query.scene).then(res => {
       this.data = res
       this.good_id = res.good_id
       this.product_id = res.product_id
@@ -77,8 +77,8 @@ export default {
 @import '~src/utils/less/var.less';
 @import url("~mpvue-wxparse/src/wxParse.css");
 .container{
-  background-color: @grayBg;
   padding-bottom: 80/@bs;
+  background-color: @grayBg;
 }
 .content{
   background-color: #fff;
