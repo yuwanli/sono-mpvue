@@ -118,7 +118,7 @@ export const generateShareImg = async (canvasId, obj, qrcode) => {
     context.fillText('推荐了好物', 150 * ratio, 454 * ratio)
     context.setFillStyle('#d31e1f')
     context.font = `bold ${34 * ratio}px`
-    context.fillText('¥ 783.55', 40 * ratio, 540 * ratio)
+    context.fillText(`¥ ${obj.price}`, 40 * ratio, 540 * ratio)
 
     context.setLineDash([2 * ratio, 5 * ratio], 20 * ratio)
     context.setStrokeStyle('#d1d1d1')
