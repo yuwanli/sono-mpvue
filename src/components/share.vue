@@ -1,8 +1,8 @@
 <template>
-  <div class="modal" @click="hide">
-    <div class="modal_content" @click.stop>
+  <div class="modal" @touchstart.stop="hide">
+    <div class="modal_content" @touchstart.stop @click.stop>
       <canvas id="canvas" class="canvas" canvas-id="share"></canvas>
-      <div class="btn" @click="btnClick">点击保存图片</div>
+      <div class="btn" @touchstart="btnClick">点击保存图片</div>
     </div>
   </div>
 </template>
